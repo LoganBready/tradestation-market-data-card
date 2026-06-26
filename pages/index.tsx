@@ -44,7 +44,7 @@ export default function Home() {
 
       <section style={{ marginBottom: 48 }}>
         <h2 style={{ fontFamily: 'Arial, sans-serif', fontSize: 14, fontWeight: 600, color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 16 }}>
-          Compact Layout · Market Open State
+          Compact Layout · Live Data
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 16 }}>
           <MarketDataCard
