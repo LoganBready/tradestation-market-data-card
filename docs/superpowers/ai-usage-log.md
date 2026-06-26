@@ -47,7 +47,13 @@ This log tracks how AI tools were used throughout this project — what was prom
 
 ## Phase 2: API Route
 
-*(To be completed after implementation)*
+**Generated:** Full Next.js API route at `pages/api/market-data/quote.ts` — three parallel Finnhub calls via `Promise.all`, inline TypeScript types for raw Finnhub responses, null normalization for market-closed state, and all four error guards (400, 405, 500, 502).
+
+**Kept:** Overall structure, parallel fetch pattern, inline type annotations, null normalization logic.
+
+**Changed / Decisions Made:**
+- Added `encodeURIComponent(symbol)` to all three Finnhub fetch URLs — the generated code interpolated `symbol` directly. Real ticker symbols are alphanumeric so this is low-risk in practice, but a percent-encoded character surviving Next.js's query parsing could produce a malformed URL. Correct production behavior is to always encode user-supplied query parameters.
+- Demo closed state for the full-layout card is derived by spreading live API data and overriding three fields (`isMarketOpen: false`, `priceChange: null`, `percentChange: null`) rather than making a second API call with a different symbol. This keeps the demo simple, avoids an extra network round-trip, and guarantees the closed state is always visible regardless of actual market hours.
 
 ---
 
@@ -65,4 +71,9 @@ This log tracks how AI tools were used throughout this project — what was prom
 
 ## Phase 4: Demo Page & README
 
-*(To be completed after implementation)*
+**Generated:** `pages/index.tsx` with `useEffect` + `useState` data fetching, two `MarketDataCard` instances (compact live and full closed-state), error handling, and loading skeleton pass-through. Also generated the full `README.md` pulling from this log.
+
+**Kept:** Overall structure, error state handling, `closedStateData` override pattern.
+
+**Changed / Decisions Made:**
+- Updated the compact card section heading from "Compact Layout · Market Open State" to "Compact Layout · Live Data" — the original heading was misleading because when the market is closed (outside trading hours or on holidays), the card correctly shows a CLOSED badge, making the heading factually wrong. "Live Data" is accurate regardless of market state.
