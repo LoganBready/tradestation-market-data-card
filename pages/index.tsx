@@ -9,19 +9,19 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/market-data/quote?symbol=AAPL')
-      .then((res) => {
+    async function fetchQuote() {
+      try {
+        const res = await fetch('/api/market-data/quote?symbol=AAPL');
         if (!res.ok) throw new Error('Failed to fetch market data');
-        return res.json() as Promise<MarketQuote>;
-      })
-      .then((json) => {
+        const json = (await res.json()) as MarketQuote;
         setData(json);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+      } finally {
         setIsLoading(false);
-      })
-      .catch((err: Error) => {
-        setError(err.message);
-        setIsLoading(false);
-      });
+      }
+    }
+    fetchQuote();
   }, []);
 
   const closedStateData: MarketQuote | null = data
