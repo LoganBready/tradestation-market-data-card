@@ -74,10 +74,10 @@ export default function Home() {
       <h1 className={styles.title}>MarketDataCard — Component Demo</h1>
       <p className={styles.subtitle}>WEB-2847 · Stocks &amp; ETFs Overview</p>
 
-      {error && <p className={styles.error}>Error: {error}</p>}
+      {error && <p className={styles.error} role="alert">Error: {error}</p>}
 
-      <section className={styles.section}>
-        <h2 className={styles.sectionLabel}>Live Data · AAPL</h2>
+      <section className={styles.section} aria-labelledby="section-live">
+        <h2 id="section-live" className={styles.sectionLabel}>Live Data · AAPL</h2>
         <div className={styles.grid}>
           <MarketDataCard
             data={data ?? ({} as MarketQuote)}
@@ -94,8 +94,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.section}>
-        <h2 className={styles.sectionLabel}>Compact Layout · All States · Mock Data</h2>
+      <section className={styles.section} aria-labelledby="section-compact">
+        <h2 id="section-compact" className={styles.sectionLabel}>Compact Layout · All States · Mock Data</h2>
         <div className={styles.grid}>
           <MarketDataCard data={{} as MarketQuote} layout="compact" isLoading={true} />
           <MarketDataCard data={mockPositive} layout="compact" />
@@ -104,8 +104,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.section}>
-        <h2 className={styles.sectionLabel}>Full Layout · All States · Mock Data</h2>
+      <section className={styles.section} aria-labelledby="section-full">
+        <h2 id="section-full" className={styles.sectionLabel}>Full Layout · All States · Mock Data</h2>
         <div className={styles.stack}>
           <MarketDataCard data={{} as MarketQuote} layout="full" isLoading={true} />
           <MarketDataCard data={mockPositive} layout="full" />

@@ -5,7 +5,12 @@ import styles from './MarketDataCard.module.css';
 export function MarketDataCard({ data, layout, isLoading = false }: MarketDataCardProps) {
   if (isLoading) {
     return (
-      <div className={`${styles.card} ${styles.skeleton} ${layout === 'full' ? styles.full : styles.compact}`}>
+      <div
+        className={`${styles.card} ${styles.skeleton} ${layout === 'full' ? styles.full : styles.compact}`}
+        role="status"
+        aria-label="Loading market data"
+        aria-busy="true"
+      >
         <div className={styles.skeletonHeader}>
           <div className={styles.skeletonHeaderLeft}>
             <div className={styles.skeletonSymbolRow}>
@@ -50,15 +55,13 @@ export function MarketDataCard({ data, layout, isLoading = false }: MarketDataCa
     ? styles.negative
     : styles.neutral;
 
-  const arrow = isPositive ? '▲' : isNegative ? '▼' : '';
-
-  const changeDisplay =
-    priceChange === null || percentChange === null
-      ? '—'
-      : `${arrow} ${isPositive ? '+' : ''}${priceChange.toFixed(2)} (${isPositive ? '+' : ''}${percentChange.toFixed(2)}%)`;
+  const arrow = isPositive ? '▲' : isNegative ? '▼' : null;
 
   return (
-    <div className={`${styles.card} ${layout === 'full' ? styles.full : styles.compact}`}>
+    <article
+      className={`${styles.card} ${layout === 'full' ? styles.full : styles.compact}`}
+      aria-label={`${symbol} stock quote`}
+    >
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <div className={styles.symbolRow}>
@@ -74,7 +77,14 @@ export function MarketDataCard({ data, layout, isLoading = false }: MarketDataCa
 
       <div className={styles.priceRow}>
         <span className={styles.price}>${price.toFixed(2)}</span>
-        <span className={`${styles.priceChange} ${changeColorClass}`}>{changeDisplay}</span>
+        <span className={`${styles.priceChange} ${changeColorClass}`}>
+          {priceChange === null || percentChange === null ? '—' : (
+            <>
+              {arrow && <span aria-hidden="true">{arrow} </span>}
+              {isPositive ? '+' : ''}{priceChange.toFixed(2)} ({isPositive ? '+' : ''}{percentChange.toFixed(2)}%)
+            </>
+          )}
+        </span>
       </div>
 
       {layout === 'full' && (
@@ -101,6 +111,6 @@ export function MarketDataCard({ data, layout, isLoading = false }: MarketDataCa
           </div>
         </div>
       )}
-    </div>
+    </article>
   );
 }

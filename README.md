@@ -60,6 +60,7 @@ The card has known structure — a header block, a price block, and a stats bloc
 | CSS token naming conventions | The brief names tokens like "Primary Blue" and "Neutral Dash" but doesn't prescribe variable names. Used `--color-primary-blue`, `--color-positive-green`, etc. — follows CSS naming conventions and makes intent clear at the point of use. Added `--color-white` (not in brief) for badge text consistency. |
 | `encodeURIComponent` on symbol in Finnhub URLs | Defensive correctness fix — symbols with special characters (e.g. `BRK.B`) are safely encoded in query strings. |
 | Demo page uses static mock data for state showcase | The live API fetch reflects actual market conditions — if the market is open, the closed/null state is never visible; if it's closed, positive and negative change colors are never visible. Static mock fixtures (MSFT positive, TSLA negative, GOOGL closed) guarantee all four states are always rendered regardless of market hours. One live AAPL card is kept to prove the API integration works. |
+| `--color-positive-green: #00AA78` fails WCAG AA contrast (2.99:1) | The brief specifies this color for positive price change text and the OPEN badge. A WCAG 2.1 AA compliant alternative is `#007A54` (5.37:1). The spec color was kept to match the design handoff exactly — this should be flagged to the designer before shipping to production. |
 | Skeleton rebuilt to mirror card anatomy | The initial skeleton used three monolithic gray blocks. Rebuilt to match the real card's structure — symbol chip, exchange badge, status badge, company name, price block, change block, and a responsive stats grid for the full layout. A skeleton that mirrors the real layout reduces perceived load time and gives the user a sense of what's coming. |
 
 ### CSS Design Token Mapping
@@ -76,6 +77,22 @@ The card has known structure — a header block, a price block, and a stats bloc
 | Text Muted | `#6B7280` | `--color-text-muted` |
 | Border | `#DDDDDD` | `--color-border` |
 | *(added)* | `#FFFFFF` | `--color-white` |
+
+---
+
+## Accessibility
+
+The component was audited against WCAG 2.1 AA after implementation. The following was addressed:
+
+| # | Issue | Action |
+|---|-------|--------|
+| 1 | `--color-positive-green: #00AA78` fails contrast at 2.99:1 (AA requires 4.5:1) | Noted — spec color kept to match design handoff. Compliant alternative is `#007A54` (5.37:1). Should be flagged to designer before production. |
+| 2 | Error message missing `role="alert"` | Fixed — dynamically injected content now announces to screen readers |
+| 3 | Loading skeleton had no accessible label | Fixed — `role="status"`, `aria-label="Loading market data"`, `aria-busy="true"` added |
+| 4 | Arrow characters `▲`/`▼` announced verbosely by screen readers | Fixed — wrapped in `aria-hidden="true"`; numeric text already conveys direction |
+| 5 | Skeleton animation ignores `prefers-reduced-motion` | Fixed — animation disabled via `@media (prefers-reduced-motion: reduce)` |
+| 6 | Card rendered as generic `<div>` | Fixed — changed to `<article aria-label="{symbol} stock quote">` for landmark navigation |
+| 7 | `<section>` elements lacked `aria-labelledby` | Fixed — each section wired to its `<h2>` via `id`/`aria-labelledby` |
 
 ---
 
