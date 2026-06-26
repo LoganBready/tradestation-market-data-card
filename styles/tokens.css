@@ -1,0 +1,13 @@
+:root {
+  --color-primary-blue: #0051A5;
+  --color-positive-green: #00AA78;
+  --color-negative-red: #DC2626;
+  --color-neutral: #6B7280;
+  --color-card-bg: #FFFFFF;
+  --color-surface-gray: #F7F8FA;
+  --color-text-primary: #1A1A2E;
+  --color-text-muted: #6B7280;
+  --color-border: #DDDDDD;
+
+  --font-family-base: Arial, Helvetica, sans-serif;
+}
