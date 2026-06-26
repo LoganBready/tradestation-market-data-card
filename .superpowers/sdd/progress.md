@@ -10,5 +10,5 @@
 | Task 4: Formatters (TDD) | complete | 0fdcab5..5049fdf | review clean; 6/6 tests pass |
 | Task 5: API Route | complete | 5049fdf..3e1d0e6 | review clean; low: encodeURIComponent fix applied |
 | Task 6: MarketDataCard Component | complete | 3e1d0e6..7fbf8ce | review clean; mobile-first refactor + white token fix applied |
-| Task 7: Demo Page | pending | - | - |
+| Task 7: Demo Page | complete | 1c92274..a5cf1b8 | review clean; heading fix applied |
 | Task 8: README | pending | - | - |

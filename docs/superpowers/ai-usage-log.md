@@ -28,6 +28,20 @@ This log tracks how AI tools were used throughout this project — what was prom
 **Changed / Decisions Made:**
 - Pushed back on time-based market hours check (Option B) in favor of the Finnhub market status endpoint (Option A) — the time-based approach doesn't account for US market holidays, which would cause the card to incorrectly show OPEN on days like Christmas or Thanksgiving
 - Clarified that client-side `useEffect` calling `/api/market-data/quote` does NOT violate the API key security requirement — the key never leaves the server, the browser only calls our own Next.js route
+- Used explicit, descriptive CSS custom property names rather than lifting the brief's label names verbatim — the brief names tokens like "Primary Blue" and "Neutral Dash" but doesn't prescribe variable names. Using `--color-primary-blue`, `--color-positive-green`, etc. follows CSS naming conventions and makes the intent clear at the point of use. Full mapping:
+
+| Brief Token Name | Value | CSS Variable |
+|---|---|---|
+| Primary Blue | `#0051A5` | `--color-primary-blue` |
+| Positive Green | `#00AA78` | `--color-positive-green` |
+| Negative Red | `#DC2626` | `--color-negative-red` |
+| Neutral Dash | `#6B7280` | `--color-neutral` |
+| Card BG | `#FFFFFF` | `--color-card-bg` |
+| Surface Gray | `#F7F8FA` | `--color-surface-gray` |
+| Text Primary | `#1A1A2E` | `--color-text-primary` |
+| Text Muted | `#6B7280` | `--color-text-muted` |
+| Border | `#DDDDDD` | `--color-border` |
+| *(added)* | `#FFFFFF` | `--color-white` |
 
 ---
 
