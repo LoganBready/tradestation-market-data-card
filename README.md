@@ -2,7 +2,8 @@
 
 **Ticket:** WEB-2847 · Sprint 14: Web Production  
 **Stack:** Next.js 13+ · TypeScript · CSS Modules · React  
-**Time to complete:** 2 hours 9 minutes (7:36 PM – 9:45 PM)
+**Time to complete:** 2 hours 9 minutes (7:36 PM – 9:45 PM)  
+**Live demo:** https://tradestation-market-data-card.vercel.app/
 
 ---
 
@@ -51,10 +52,10 @@ The card has known structure — a header block, a price block, and a stats bloc
 
 | Decision | Rationale |
 |---|---|
-| Added `volume` to `MarketQuote` interface and API route | AC #4 requires volume formatted as an abbreviated number (e.g. 48.2M). The field exists on Finnhub's `/quote` response (`v`) but was omitted from the brief's interface — added to satisfy the acceptance criterion. |
+| Added `volume` to `MarketQuote` interface and API route | AC #4 requires volume formatted as an abbreviated number (e.g. 48.2M). The brief's interface omitted `volume`, but Aaron's Slack thread confirms Finnhub returns it as a raw integer in the `/quote` response (`v` field). Added to satisfy the acceptance criterion. Note: volume reads as `0` when the market is closed — no trading has occurred — which is expected and correct. |
+| `priceChange` and `percentChange` are `null` when market is closed | The Slack thread (Aaron) explicitly states Finnhub returns `d`/`dp` as `0` — not `null` — when closed, and instructs the route to normalize them to `null` so the component has a clean signal. The API route implements this: `priceChange: isMarketOpen ? quote.d : null`. The component treats `null` as the closed state and renders `—`. |
 | Used Finnhub market status endpoint for `isMarketOpen` | The brief offered a time-based ET check as an alternative. A time check doesn't account for US market holidays — the market would incorrectly show as OPEN on days like Christmas or MLK Day. The Finnhub status endpoint adds one parallel call at no extra latency and returns the correct value. |
 | Client-side `useEffect` fetch in demo page | `getServerSideProps` also satisfies the API key security requirement, but data arrives with the HTML — the loading state never fires naturally. Even if `isLoading` weren't an acceptance criterion, loading states are something I'd add in a real app. Choosing client-side fetch makes the loading treatment authentic and keeps the data-fetching model explicit. |
-| Demo closed state derived from live data | The full-layout card always shows the closed/null state by overriding `isMarketOpen`, `priceChange`, and `percentChange` on the fetched data. This avoids a second API call and ensures both states are visible regardless of actual market hours. |
 | CSS custom properties for design tokens | Tokens defined at `:root` in `styles/tokens.css` are available globally via `var()` in every CSS Module — no re-importing. Single source of truth prevents design drift across files. |
 | Mobile-first CSS with `min-width` breakpoints | Generated code defaulted to desktop-first (`max-width`) queries. Converted to mobile-first (`min-width`) — base styles serve the smallest screen and breakpoints progressively enhance upward. Better for performance and reflects a mobile-dominant world. |
 | CSS token naming conventions | The brief names tokens like "Primary Blue" and "Neutral Dash" but doesn't prescribe variable names. Used `--color-primary-blue`, `--color-positive-green`, etc. — follows CSS naming conventions and makes intent clear at the point of use. Added `--color-white` (not in brief) for badge text consistency. |
