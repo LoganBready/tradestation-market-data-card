@@ -24,9 +24,10 @@ export default async function handler(
   }
 
   try {
+    const encodedSymbol = encodeURIComponent(symbol);
     const [quoteRes, profileRes, statusRes] = await Promise.all([
-      fetch(`${FINNHUB_BASE}/quote?symbol=${symbol}&token=${key}`),
-      fetch(`${FINNHUB_BASE}/stock/profile2?symbol=${symbol}&token=${key}`),
+      fetch(`${FINNHUB_BASE}/quote?symbol=${encodedSymbol}&token=${key}`),
+      fetch(`${FINNHUB_BASE}/stock/profile2?symbol=${encodedSymbol}&token=${key}`),
       fetch(`${FINNHUB_BASE}/stock/market-status?exchange=US&token=${key}`),
     ]);
 
