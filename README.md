@@ -1,7 +1,8 @@
 # MarketDataCard — TradeStation Front End Assessment
 
 **Ticket:** WEB-2847 · Sprint 14: Web Production  
-**Stack:** Next.js 13+ · TypeScript · CSS Modules · React
+**Stack:** Next.js 13+ · TypeScript · CSS Modules · React  
+**Time to complete:** 2 hours 9 minutes (7:36 PM – 9:45 PM)
 
 ---
 
