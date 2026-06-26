@@ -39,7 +39,13 @@ This log tracks how AI tools were used throughout this project — what was prom
 
 ## Phase 3: MarketDataCard Component
 
-*(To be completed after implementation)*
+**Generated:** Component with three render branches (loading skeleton, compact layout, full layout), CSS Modules with design token variables, responsive stats grid, price change display logic (positive/negative/null), badge styles, barrel export, and full test suite.
+
+**Kept:** Overall structure, prop-driven architecture, skeleton animation approach, all token usage.
+
+**Changed / Decisions Made:**
+- Converted CSS from desktop-first (`max-width` queries) to mobile-first (`min-width` queries) — the generated code defaulted to desktop-first, which is a common pattern but not best practice. Mobile-first means base styles serve the smallest screen and breakpoints progressively enhance for larger ones. This is better for performance and reflects how most users in a mobile-dominant world will encounter the component first.
+- Added `--color-white: #FFFFFF` token to `styles/tokens.css` and replaced two hardcoded `#ffffff` values in badge styles — consistency with the design token system matters for maintainability even for something as simple as white text.
 
 ---
 
