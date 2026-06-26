@@ -6,9 +6,30 @@ export function MarketDataCard({ data, layout, isLoading = false }: MarketDataCa
   if (isLoading) {
     return (
       <div className={`${styles.card} ${styles.skeleton} ${layout === 'full' ? styles.full : styles.compact}`}>
-        <div className={styles.skeletonHeader} />
-        <div className={styles.skeletonPrice} />
-        {layout === 'full' && <div className={styles.skeletonStats} />}
+        <div className={styles.skeletonHeader}>
+          <div className={styles.skeletonHeaderLeft}>
+            <div className={styles.skeletonSymbolRow}>
+              <div className={styles.skeletonSymbol} />
+              <div className={styles.skeletonExchangeBadge} />
+            </div>
+            <div className={styles.skeletonCompanyName} />
+          </div>
+          <div className={styles.skeletonStatusBadge} />
+        </div>
+        <div className={styles.skeletonPriceRow}>
+          <div className={styles.skeletonPrice} />
+          <div className={styles.skeletonChange} />
+        </div>
+        {layout === 'full' && (
+          <div className={styles.skeletonStatsRow}>
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className={styles.skeletonStat}>
+                <div className={styles.skeletonStatLabel} />
+                <div className={styles.skeletonStatValue} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }

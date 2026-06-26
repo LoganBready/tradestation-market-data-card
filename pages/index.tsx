@@ -3,6 +3,51 @@ import type { MarketQuote } from '@/types/market';
 import { MarketDataCard } from '@/components/MarketDataCard';
 import styles from '@/styles/demo.module.css';
 
+const mockPositive: MarketQuote = {
+  symbol: 'MSFT',
+  companyName: 'Microsoft Corporation',
+  exchange: 'NASDAQ NMS - GLOBAL MARKET',
+  price: 415.26,
+  priceChange: 8.43,
+  percentChange: 2.07,
+  dayHigh: 418.50,
+  dayLow: 408.12,
+  prevClose: 406.83,
+  marketCap: 3080000000000,
+  volume: 22541038,
+  isMarketOpen: true,
+};
+
+const mockNegative: MarketQuote = {
+  symbol: 'TSLA',
+  companyName: 'Tesla, Inc.',
+  exchange: 'NASDAQ NMS - GLOBAL MARKET',
+  price: 248.50,
+  priceChange: -12.35,
+  percentChange: -4.74,
+  dayHigh: 263.20,
+  dayLow: 246.18,
+  prevClose: 260.85,
+  marketCap: 793000000000,
+  volume: 89234521,
+  isMarketOpen: true,
+};
+
+const mockClosed: MarketQuote = {
+  symbol: 'GOOGL',
+  companyName: 'Alphabet Inc.',
+  exchange: 'NASDAQ NMS - GLOBAL MARKET',
+  price: 178.90,
+  priceChange: null,
+  percentChange: null,
+  dayHigh: 181.45,
+  dayLow: 176.23,
+  prevClose: 177.55,
+  marketCap: 2180000000000,
+  volume: 18923045,
+  isMarketOpen: false,
+};
+
 export default function Home() {
   const [data, setData] = useState<MarketQuote | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,10 +69,6 @@ export default function Home() {
     fetchQuote();
   }, []);
 
-  const closedStateData: MarketQuote | null = data
-    ? { ...data, isMarketOpen: false, priceChange: null, percentChange: null }
-    : null;
-
   return (
     <main className={styles.page}>
       <h1 className={styles.title}>MarketDataCard — Component Demo</h1>
@@ -36,7 +77,7 @@ export default function Home() {
       {error && <p className={styles.error}>Error: {error}</p>}
 
       <section className={styles.section}>
-        <h2 className={styles.sectionLabel}>Compact Layout · Live Data</h2>
+        <h2 className={styles.sectionLabel}>Live Data · AAPL</h2>
         <div className={styles.grid}>
           <MarketDataCard
             data={data ?? ({} as MarketQuote)}
@@ -44,15 +85,33 @@ export default function Home() {
             isLoading={isLoading || !data}
           />
         </div>
+        <div className={`${styles.stack} ${styles.stackBelowGrid}`}>
+          <MarketDataCard
+            data={data ?? ({} as MarketQuote)}
+            layout="full"
+            isLoading={isLoading || !data}
+          />
+        </div>
       </section>
 
-      <section>
-        <h2 className={styles.sectionLabel}>Full Layout · Market Closed State (null change values)</h2>
-        <MarketDataCard
-          data={closedStateData ?? ({} as MarketQuote)}
-          layout="full"
-          isLoading={isLoading || !data}
-        />
+      <section className={styles.section}>
+        <h2 className={styles.sectionLabel}>Compact Layout · All States · Mock Data</h2>
+        <div className={styles.grid}>
+          <MarketDataCard data={{} as MarketQuote} layout="compact" isLoading={true} />
+          <MarketDataCard data={mockPositive} layout="compact" />
+          <MarketDataCard data={mockNegative} layout="compact" />
+          <MarketDataCard data={mockClosed} layout="compact" />
+        </div>
+      </section>
+
+      <section className={styles.section}>
+        <h2 className={styles.sectionLabel}>Full Layout · All States · Mock Data</h2>
+        <div className={styles.stack}>
+          <MarketDataCard data={{} as MarketQuote} layout="full" isLoading={true} />
+          <MarketDataCard data={mockPositive} layout="full" />
+          <MarketDataCard data={mockNegative} layout="full" />
+          <MarketDataCard data={mockClosed} layout="full" />
+        </div>
       </section>
     </main>
   );
