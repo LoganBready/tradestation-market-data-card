@@ -1,0 +1,48 @@
+# AI Tool Usage Log
+
+This log tracks how AI tools were used throughout this project — what was prompted, what was generated, what was kept, and what was changed. Compiled into the README for submission.
+
+---
+
+## Phase 1: Design & Architecture
+
+**Tool:** Claude (Claude Code)
+
+**Prompted:** Read the full assessment brief and help design the architecture before writing any code — project structure, data fetching approach, API route design, component structure, and loading state treatment.
+
+**Generated:**
+- Three data fetching approaches (client-side useEffect, getServerSideProps, App Router + Suspense) with trade-offs for each
+- Full project directory structure
+- API route normalization logic and field mapping from Finnhub raw responses
+- Component rendering branches (loading, compact, full)
+- Design token strategy using CSS custom properties as an alternative to Tailwind
+- Decision to add `volume` field (missing from brief's interface but required by AC #4)
+- Full design spec at `docs/superpowers/specs/2026-06-25-market-data-card-design.md`
+
+**Kept:**
+- Approach 1 (client-side useEffect) for the demo page — even if `isLoading` weren't an acceptance criterion, loading states are something I'd add regardless in a real app. But with `getServerSideProps`, the data arrives with the HTML and the loading state would never be visible to the user. Choosing client-side fetch was a deliberate call to both demonstrate the loading treatment authentically and keep the data-fetching model simple and transparent
+- Project structure as proposed
+- CSS custom properties for design tokens — defining tokens at `:root` means any CSS Module in the project can consume them via `var()` without re-declaring values. This builds a strong design system foundation and prevents design drift where the same color gets typed differently across files over time
+- Pulsing skeleton for loading state — skeletons fit more naturally in a card-based layout than a spinner. The card has known structure, so the skeleton can mirror it and give the user a sense of what's coming. Better UX than a generic spinner that gives no layout signal
+
+**Changed / Decisions Made:**
+- Pushed back on time-based market hours check (Option B) in favor of the Finnhub market status endpoint (Option A) — the time-based approach doesn't account for US market holidays, which would cause the card to incorrectly show OPEN on days like Christmas or Thanksgiving
+- Clarified that client-side `useEffect` calling `/api/market-data/quote` does NOT violate the API key security requirement — the key never leaves the server, the browser only calls our own Next.js route
+
+---
+
+## Phase 2: API Route
+
+*(To be completed after implementation)*
+
+---
+
+## Phase 3: MarketDataCard Component
+
+*(To be completed after implementation)*
+
+---
+
+## Phase 4: Demo Page & README
+
+*(To be completed after implementation)*
