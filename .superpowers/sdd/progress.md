@@ -11,4 +11,4 @@
 | Task 5: API Route | complete | 5049fdf..3e1d0e6 | review clean; low: encodeURIComponent fix applied |
 | Task 6: MarketDataCard Component | complete | 3e1d0e6..7fbf8ce | review clean; mobile-first refactor + white token fix applied |
 | Task 7: Demo Page | complete | 1c92274..a5cf1b8 | review clean; heading fix applied |
-| Task 8: README | complete | cf91604..82d257c | review clean; log phases 2+4 completed |
+| Task 8: README | complete | cf91604..878cbb3 | final review fixes: error crash, hex tokens, scaffold cleanup |
