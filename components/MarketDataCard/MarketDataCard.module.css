@@ -112,15 +112,6 @@
 }
 
 /* ── Price row ── */
-.priceRow {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 0 16px 16px;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
 .price {
   font-size: 32px;
   font-weight: 700;
@@ -145,13 +136,43 @@
   color: var(--color-neutral);
 }
 
-/* ── Stats row (full layout only) ── */
+/* ── Price row — mobile-first: stacked on small screens ── */
+.priceRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 16px 16px;
+  gap: 4px;
+}
+
+@media (min-width: 768px) {
+  .priceRow {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+}
+
+/* ── Stats row (full layout only) — mobile-first: single column ── */
 .statsRow {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 1px;
   background-color: var(--color-border);
   border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 480px) {
+  .statsRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .statsRow {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .stat {
@@ -174,27 +195,4 @@
   font-size: 15px;
   font-weight: 500;
   color: var(--color-text-primary);
-}
-
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .compact {
-    width: 100%;
-  }
-
-  .priceRow {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .statsRow {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .statsRow {
-    grid-template-columns: 1fr;
-  }
 }
