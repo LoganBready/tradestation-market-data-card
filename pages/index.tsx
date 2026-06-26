@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { MarketQuote } from '@/types/market';
 import { MarketDataCard } from '@/components/MarketDataCard';
+import styles from '@/styles/demo.module.css';
 
 export default function Home() {
   const [data, setData] = useState<MarketQuote | null>(null);
@@ -28,25 +29,15 @@ export default function Home() {
     : null;
 
   return (
-    <main style={{ maxWidth: 900, margin: '0 auto', padding: '40px 24px' }}>
-      <h1 style={{ fontFamily: 'Arial, sans-serif', marginBottom: 8, color: 'var(--color-text-primary)' }}>
-        MarketDataCard — Component Demo
-      </h1>
-      <p style={{ fontFamily: 'Arial, sans-serif', color: 'var(--color-text-muted)', marginBottom: 40, fontSize: 14 }}>
-        WEB-2847 · Stocks &amp; ETFs Overview
-      </p>
+    <main className={styles.page}>
+      <h1 className={styles.title}>MarketDataCard — Component Demo</h1>
+      <p className={styles.subtitle}>WEB-2847 · Stocks &amp; ETFs Overview</p>
 
-      {error && (
-        <p style={{ color: 'var(--color-negative-red)', fontFamily: 'Arial, sans-serif', marginBottom: 24 }}>
-          Error: {error}
-        </p>
-      )}
+      {error && <p className={styles.error}>Error: {error}</p>}
 
-      <section style={{ marginBottom: 48 }}>
-        <h2 style={{ fontFamily: 'Arial, sans-serif', fontSize: 14, fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 16 }}>
-          Compact Layout · Live Data
-        </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 16 }}>
+      <section className={styles.section}>
+        <h2 className={styles.sectionLabel}>Compact Layout · Live Data</h2>
+        <div className={styles.grid}>
           <MarketDataCard
             data={data ?? ({} as MarketQuote)}
             layout="compact"
@@ -56,9 +47,7 @@ export default function Home() {
       </section>
 
       <section>
-        <h2 style={{ fontFamily: 'Arial, sans-serif', fontSize: 14, fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 16 }}>
-          Full Layout · Market Closed State (null change values)
-        </h2>
+        <h2 className={styles.sectionLabel}>Full Layout · Market Closed State (null change values)</h2>
         <MarketDataCard
           data={closedStateData ?? ({} as MarketQuote)}
           layout="full"
