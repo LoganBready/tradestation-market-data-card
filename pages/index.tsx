@@ -29,40 +29,40 @@ export default function Home() {
 
   return (
     <main style={{ maxWidth: 900, margin: '0 auto', padding: '40px 24px' }}>
-      <h1 style={{ fontFamily: 'Arial, sans-serif', marginBottom: 8, color: '#1A1A2E' }}>
+      <h1 style={{ fontFamily: 'Arial, sans-serif', marginBottom: 8, color: 'var(--color-text-primary)' }}>
         MarketDataCard — Component Demo
       </h1>
-      <p style={{ fontFamily: 'Arial, sans-serif', color: '#6B7280', marginBottom: 40, fontSize: 14 }}>
+      <p style={{ fontFamily: 'Arial, sans-serif', color: 'var(--color-text-muted)', marginBottom: 40, fontSize: 14 }}>
         WEB-2847 · Stocks &amp; ETFs Overview
       </p>
 
       {error && (
-        <p style={{ color: '#DC2626', fontFamily: 'Arial, sans-serif', marginBottom: 24 }}>
+        <p style={{ color: 'var(--color-negative-red)', fontFamily: 'Arial, sans-serif', marginBottom: 24 }}>
           Error: {error}
         </p>
       )}
 
       <section style={{ marginBottom: 48 }}>
-        <h2 style={{ fontFamily: 'Arial, sans-serif', fontSize: 14, fontWeight: 600, color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 16 }}>
+        <h2 style={{ fontFamily: 'Arial, sans-serif', fontSize: 14, fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 16 }}>
           Compact Layout · Live Data
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 16 }}>
           <MarketDataCard
             data={data ?? ({} as MarketQuote)}
             layout="compact"
-            isLoading={isLoading}
+            isLoading={isLoading || !data}
           />
         </div>
       </section>
 
       <section>
-        <h2 style={{ fontFamily: 'Arial, sans-serif', fontSize: 14, fontWeight: 600, color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 16 }}>
+        <h2 style={{ fontFamily: 'Arial, sans-serif', fontSize: 14, fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 16 }}>
           Full Layout · Market Closed State (null change values)
         </h2>
         <MarketDataCard
           data={closedStateData ?? ({} as MarketQuote)}
           layout="full"
-          isLoading={isLoading}
+          isLoading={isLoading || !data}
         />
       </section>
     </main>
